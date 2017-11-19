@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Animation and Sounds</title>
+	<link rel="stylesheet" type="text/css" href="animationandsounds.css">
+	<script type="text/javascript" src="paper-full.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.5/howler.core.min.js"></script>
+	<script type="text/javascript" src="data.js"></script>
+	<script type="text/paperscript" canvas="myCanvas">
+
+
+	var circle = [];
+			
+	function onKeyDown(event) {
+		if(data[event.key]){
+		var maxPoint = new Point(view.size.width,view.size.height);
+		var randomPoint = Point.random();
+		var point = maxPoint * randomPoint;
+		var newCircle = new Path.Circle(point,300);
+		newCircle.fillColor = data[event.key].color;
+		data[event.key].sound.play();
+		circle.push(newCircle);	
+		$("h1").remove();	
+	}
+}
+
+	function onFrame(event) {
+		for(var i = 0; i< circle.length; i++){
+		circle[i].fillColor.hue +=1;
+		circle[i].scale(.9);
+	}
+}
+
+
+	</script>
+
+
+</head>
+<body>
+	<h1>press any key from a-z</h1>
+	<canvas id="myCanvas" resize></canvas>
+</body>
+</html>
